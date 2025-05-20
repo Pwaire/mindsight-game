@@ -1,8 +1,8 @@
 export const shapePaths = {
-  BlackStar: 'imagess/star.png',
-  GreenStar: 'imagess/Green Star.png',
-  RedStar: 'imagess/Red Star.png',
-  BlackSquare: 'imagess/square.png',
-  GreenSquare: 'imagess/Green Square.png',
-  RedSquare: 'imagess/Red Square.png',
+  BlackStar: 'images/star.png',
+  GreenStar: 'images/green_star.png',
+  RedStar: 'images/red_star.png',
+  BlackSquare: 'images/square.png',
+  GreenSquare: 'images/green_square.png',
+  RedSquare: 'images/red_square.png',
 };

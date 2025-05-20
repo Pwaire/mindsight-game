@@ -50,13 +50,13 @@ function handleShapeClick(buttonId) {
   gameManager.debugSuccessRound();
 
   console.log('Succeed count ' + gameManager.succeededCount)
-  RefreshRoundCount();
-  DisplayRandomShape();
-
-    if(gameManager.currentRound >= gameManager.roundCount){
-        setElementActive(gameContainer, false);
-        displayResult(gameManager.succeededCount, gameManager.roundCount);
-    }
+  if (gameManager.currentRound >= gameManager.roundCount) {
+    setElementActive(gameContainer, false);
+    displayResult(gameManager.succeededCount, gameManager.roundCount);
+  } else {
+    RefreshRoundCount();
+    DisplayRandomShape();
+  }
 }
 
 function renderRoundBoard() { 

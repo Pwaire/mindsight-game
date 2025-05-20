@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guess the Shape</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrapper">
+    <button id="calibrate-button" class="primary-button">Calibrate</button>
+
+    <section id="calibrate-container" class="card hidden">
+  <div class="calibrate-content">
+    <img id="calibrateShape-image" alt="Shape Image" />
+    <p id="calibrateShape-name"></p>
+    <button id="nextShape-calibrate-button">Next</button>
+  </div>
+  <div id="switchCalibrateShape-container"></div>
+</section>
+
+    <button id="start-button" class="start-button">Start Game</button>
+
+    <section id="game-container" class="card hidden">
+      <p id="round-counter"></p>
+      <img id="shape-image" alt="Shape Image" />
+      <div id="button-container"></div>
+    </section>
+
+    <section id="result-container" class="card hidden">
+      <h2>Your Score:</h2>
+      <p id="result-score"></p>
+      <div id="round-board"></div>
+      <div class="button-group">
+        <button id="end-calibrate-button">Calibrate</button>
+        <button id="playAgain-button" class="start-button">Play Again</button>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="main.js"></script>
+  <script type="module" src="CalibrateManager.js"></script>
+</body>
+</html>

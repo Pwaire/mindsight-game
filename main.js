@@ -66,15 +66,21 @@ function renderRoundBoard() {
         const li = document.createElement('li');
         const img = document.createElement('img');
 
-        const color = success ? 'Green' : 'Red';
-        const shapeKey = shape?.name ? `${color}${shape.name.replace('Black', '')}` : null;
+        const rawShapeName = shape?.name?.toLowerCase(); // e.g., 'blackstar'
+        let shapeKey = '';
+
+        if (rawShapeName?.includes('star') || rawShapeName?.includes('square')) {
+            const base = rawShapeName.includes('star') ? 'star' : 'square';
+            const color = success === true ? 'green' : success === false ? 'red' : 'black';
+            shapeKey = `${color}_${base}`;
+        }
 
         img.src = shapePaths[shapeKey] || '';
         img.alt = `Shape ${index + 1}`;
         img.style.width = '30px';
         img.style.height = '30px';
-        img.style.marginLeft = '20px'; // Add spacing between text and image
-        img.style.marginBottom = '20px'; // Add spacing between rows
+        img.style.marginLeft = '20px';
+        img.style.marginBottom = '20px';
         img.style.verticalAlign = 'middle';
 
         li.textContent = `Shape ${index + 1}:`;

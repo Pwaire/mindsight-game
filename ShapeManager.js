@@ -2,8 +2,8 @@ import { Shape } from './shape.js';
 import { shapePaths } from './AssetsPath.js';
 
 export const availableShapes = [
-  new Shape('Star', shapePaths.BlackStar),
-  new Shape('Square', shapePaths.BlackSquare)
+  new Shape('Star', shapePaths.black_star),
+  new Shape('Square', shapePaths.black_square)
 ];
 
 export class ShapeManager {

@@ -65,7 +65,6 @@ function handleShapeClick(buttonId) {
       displayResult(gameManager.succeededCount, gameManager.roundCount);
     }, 500);
   } else {
-    RefreshRoundCount();
     setTimeout(() => {
       DisplayRandomShape();
     }, 500);
@@ -117,6 +116,7 @@ function setupGameUI() {
 
 function DisplayRandomShape() {
     shapeManager.SetNewRandomShape();
+    RefreshRoundCount();
 
     const shapeImg = document.getElementById('shape-image');
     if (shapeImg instanceof HTMLImageElement) {
@@ -161,9 +161,8 @@ endCalibrateBtn.onclick = () => {
 
 function RestartGame() {
     isFirstShape = true;
-    DisplayRandomShape();
     gameManager.reset();
-    RefreshRoundCount();
+    DisplayRandomShape();
     setElementActive(resultContainer, false);
     setElementActive(startBtn, false);
     setElementActive(gameContainer, true);

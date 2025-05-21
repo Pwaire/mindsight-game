@@ -21,6 +21,7 @@ const swipeRuleAudio = new Audio(audioPaths.swipe_rule);
 const guessSuccessAudio = new Audio(audioPaths.guess_success);
 const guessErrorAudio = new Audio(audioPaths.guess_error);
 let isFirstShape = true;
+let isAwaitingShape = false;
 
 let shapeManager; 
 let gameManager;
@@ -36,6 +37,15 @@ function setElementActive(container, active) {
     container.style.display = value;
 }
 
+function setButtonsEnabled(enabled) {
+    const container = document.getElementById('button-container');
+    if (!container) return;
+    const buttons = container.getElementsByTagName('button');
+    for (let btn of buttons) {
+        btn.disabled = !enabled;
+    }
+}
+
 function displayResult(score, totalRound){
     setElementActive(resultContainer, true);
     resultText.textContent = score + "/" + totalRound;
@@ -43,6 +53,11 @@ function displayResult(score, totalRound){
 }
 
 function handleShapeClick(buttonId) {
+
+  if (isAwaitingShape) return;
+
+  isAwaitingShape = true;
+  setButtonsEnabled(false);
 
   gameManager.setCurrentRoundShape(shapeManager.currentShape);
 
@@ -130,6 +145,9 @@ function DisplayRandomShape() {
         newShapeAudio.currentTime = 0;
         newShapeAudio.play();
     }
+
+    setButtonsEnabled(true);
+    isAwaitingShape = false;
 }
 
 function RefreshRoundCount() {

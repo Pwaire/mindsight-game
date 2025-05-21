@@ -24,7 +24,6 @@ let gameManager;
     shapeManager = new ShapeManager('shape-text', 'shape-image');
     gameManager = new GameManager();
     setupGameUI();
-    setupSwipeFeedback();
 })();
 
 function setElementActive(container, active) {
@@ -179,41 +178,3 @@ gameContainer.addEventListener('touchend', (e) => {
     touchEndX = e.changedTouches[0].screenX;
     handleSwipeGesture();
 }, false);
-
-
-function setupSwipeFeedback() {
-    const starBtn = document.getElementById('Star');
-    const squareBtn = document.getElementById('Square');
-    if (!starBtn || !squareBtn) return;
-
-    let startX = null;
-
-    const highlight = (btn) => {
-        starBtn.classList.toggle('swiping', btn === starBtn);
-        squareBtn.classList.toggle('swiping', btn === squareBtn);
-    };
-
-    document.addEventListener('touchstart', (e) => {
-        if (e.touches.length > 0) {
-            startX = e.touches[0].clientX;
-        }
-    });
-
-    document.addEventListener('touchmove', (e) => {
-        if (startX === null) return;
-        const diff = e.touches[0].clientX - startX;
-        if (diff > 40) {
-            highlight(squareBtn);
-        } else if (diff < -40) {
-            highlight(starBtn);
-        } else {
-            highlight(null);
-        }
-    });
-
-    document.addEventListener('touchend', () => {
-        highlight(null);
-        startX = null;
-    });
-}
-

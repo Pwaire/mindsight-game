@@ -156,3 +156,27 @@ function RestartGame() {
     roundBoard.innerHTML = ''; // clear board
 }
 
+// -- Mobile swipe support --
+let touchStartX = 0;
+let touchEndX = 0;
+
+function handleSwipeGesture() {
+    const threshold = 30;
+    const diff = touchEndX - touchStartX;
+    if (Math.abs(diff) < threshold) return;
+    if (diff > 0) {
+        handleShapeClick('Square');
+    } else {
+        handleShapeClick('Star');
+    }
+}
+
+gameContainer.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+}, false);
+
+gameContainer.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipeGesture();
+}, false);
+

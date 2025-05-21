@@ -32,3 +32,4 @@ Thumbs.db
 
 # Now explicitly ignore gitApply.txt
 gitApply.txt
+execute_git_apply.sh

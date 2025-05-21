@@ -2,6 +2,7 @@ import { Shape } from './shape.js';
 import { ShapeManager } from './ShapeManager.js';
 import { GameManager } from './GameManager.js';
 import { shapePaths } from './AssetsPath.js';
+import { audioPaths } from './AudioPaths.js';
 import { setCalibrateButtonActive } from './CalibrateManager.js';
 import { setCalibrateContainerActive } from './CalibrateManager.js';
 import { startCalibrating } from './CalibrateManager.js';
@@ -14,6 +15,7 @@ const playAgainBtn = document.getElementById('playAgain-button');
 const endCalibrateBtn = document.getElementById('end-calibrate-button');
 const roundCounter = document.getElementById('round-counter');
 const roundBoard = document.getElementById('round-board');
+const newShapeAudio = new Audio(audioPaths.new_shape_displayed);
 
 let shapeManager; 
 let gameManager;
@@ -109,6 +111,8 @@ function DisplayRandomShape() {
     if (shapeImg instanceof HTMLImageElement) {
         shapeImg.src = shapeManager.currentShape.imagePath;
     }
+    newShapeAudio.currentTime = 0;
+    newShapeAudio.play();
 }
 
 function RefreshRoundCount() {

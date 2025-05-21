@@ -18,6 +18,8 @@ const roundCounter = document.getElementById('round-counter');
 const roundBoard = document.getElementById('round-board');
 const newShapeAudio = new Audio(audioPaths.new_shape_displayed);
 const swipeRuleAudio = new Audio(audioPaths.swipe_rule);
+const guessSuccessAudio = new Audio(audioPaths.guess_success);
+const guessErrorAudio = new Audio(audioPaths.guess_error);
 let isFirstShape = true;
 
 let shapeManager; 
@@ -44,21 +46,29 @@ function handleShapeClick(buttonId) {
 
   gameManager.setCurrentRoundShape(shapeManager.currentShape);
 
-  if (buttonId === shapeManager.currentShape.name) {
+  const isCorrect = buttonId === shapeManager.currentShape.name;
+
+  if (isCorrect) {
     gameManager.increasePoint();
     gameManager.setCurrentRoundSuccess(true);
-    gameManager.increaseRound();
-  } else {
-    gameManager.increaseRound();
   }
+  gameManager.increaseRound();
+
+  const audio = isCorrect ? guessSuccessAudio : guessErrorAudio;
+  audio.currentTime = 0;
+  audio.play();
 
   console.log('Succeed count ' + gameManager.succeededCount)
   if (gameManager.currentRound >= gameManager.roundCount) {
-    setElementActive(gameContainer, false);
-    displayResult(gameManager.succeededCount, gameManager.roundCount);
+    setTimeout(() => {
+      setElementActive(gameContainer, false);
+      displayResult(gameManager.succeededCount, gameManager.roundCount);
+    }, 500);
   } else {
     RefreshRoundCount();
-    DisplayRandomShape();
+    setTimeout(() => {
+      DisplayRandomShape();
+    }, 500);
   }
 }
 

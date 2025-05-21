@@ -1,4 +1,4 @@
 export const audioPaths = {
-  circle: '',
-  square: ''
+  star: 'audio/star.mp3',
+  square: 'audio/square.mp3'
 };

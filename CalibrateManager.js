@@ -12,7 +12,14 @@ if (!(shapeImgElement instanceof HTMLImageElement)) {
     throw new Error('Expected #calibrateShape-image to be an HTMLImageElement');
 }
 
-const shapeImg = shapeImgElement; 
+const shapeImg = shapeImgElement;
+const audio = new Audio();
+
+function playShapeAudio(shape) {
+    if (!shape || !shape.audioPath) return;
+    audio.src = shape.audioPath;
+    audio.play();
+}
 
 (() => {
     setElementActive(calibrateContainer, false);
@@ -43,6 +50,7 @@ nextShapeBtn.onclick = () => {
     shapeImg.src = currentDisplayedShape.imagePath;
     shapeImg.alt = currentDisplayedShape.name;
     shapeNameElement.textContent = currentDisplayedShape.name; // Show name
+    playShapeAudio(currentDisplayedShape);
 };
 
 
@@ -61,5 +69,6 @@ function SetRandomShape() {
     shapeImg.src = currentDisplayedShape.imagePath;
     shapeImg.alt = currentDisplayedShape.name;
     shapeNameElement.textContent = currentDisplayedShape.name; // Show name
+    playShapeAudio(currentDisplayedShape);
 }
 

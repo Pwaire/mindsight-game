@@ -72,3 +72,24 @@ function SetRandomShape() {
     playShapeAudio(currentDisplayedShape);
 }
 
+// -- Mobile swipe support for calibrate screen --
+let calibrateTouchStartX = 0;
+let calibrateTouchEndX = 0;
+
+function handleCalibrateSwipeGesture() {
+    const threshold = 30; // minimal distance to be considered a swipe
+    const diff = calibrateTouchEndX - calibrateTouchStartX;
+    if (Math.abs(diff) < threshold) return;
+    // For calibration, any horizontal swipe moves to the next shape
+    nextShapeBtn.click();
+}
+
+calibrateContainer.addEventListener('touchstart', (e) => {
+    calibrateTouchStartX = e.changedTouches[0].screenX;
+}, false);
+
+calibrateContainer.addEventListener('touchend', (e) => {
+    calibrateTouchEndX = e.changedTouches[0].screenX;
+    handleCalibrateSwipeGesture();
+}, false);
+

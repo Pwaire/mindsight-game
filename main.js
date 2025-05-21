@@ -16,6 +16,8 @@ const endCalibrateBtn = document.getElementById('end-calibrate-button');
 const roundCounter = document.getElementById('round-counter');
 const roundBoard = document.getElementById('round-board');
 const newShapeAudio = new Audio(audioPaths.new_shape_displayed);
+const swipeRuleAudio = new Audio(audioPaths.swipe_rule);
+let isFirstShape = true;
 
 let shapeManager; 
 let gameManager;
@@ -109,8 +111,14 @@ function DisplayRandomShape() {
     if (shapeImg instanceof HTMLImageElement) {
         shapeImg.src = shapeManager.currentShape.imagePath;
     }
-    newShapeAudio.currentTime = 0;
-    newShapeAudio.play();
+    if (isFirstShape) {
+        swipeRuleAudio.currentTime = 0;
+        swipeRuleAudio.play();
+        isFirstShape = false;
+    } else {
+        newShapeAudio.currentTime = 0;
+        newShapeAudio.play();
+    }
 }
 
 function RefreshRoundCount() {
@@ -141,6 +149,7 @@ endCalibrateBtn.onclick = () => {
 }
 
 function RestartGame() {
+    isFirstShape = true;
     DisplayRandomShape();
     gameManager.reset();
     RefreshRoundCount();

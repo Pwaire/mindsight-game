@@ -3,7 +3,7 @@ import { shapePaths } from './AssetsPath.js';
 import { audioPaths } from './AudioPaths.js';
 
 export const availableShapes = [
-  new Shape('Star', shapePaths.black_star, ''),
+  new Shape('Star', shapePaths.black_star, audioPaths.star),
   new Shape('Square', shapePaths.black_square, audioPaths.square)
 ];
 

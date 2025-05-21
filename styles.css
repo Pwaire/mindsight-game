@@ -55,6 +55,11 @@ button:hover {
   background-color: #2980b9;
 }
 
+/* highlight button when user swipes */
+.swiping {
+  background-color: #f1c40f;
+}
+
 .primary-button {
   font-size: 17px;
 }

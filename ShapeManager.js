@@ -1,9 +1,10 @@
 import { Shape } from './shape.js';
 import { shapePaths } from './AssetsPath.js';
+import { audioPaths } from './AudioPaths.js';
 
 export const availableShapes = [
-  new Shape('Star', shapePaths.black_star),
-  new Shape('Square', shapePaths.black_square)
+  new Shape('Star', shapePaths.black_star, ''),
+  new Shape('Square', shapePaths.black_square, audioPaths.square)
 ];
 
 export class ShapeManager {

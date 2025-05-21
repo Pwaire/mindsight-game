@@ -4,5 +4,5 @@
     "module": "commonjs",
     "checkJs": true
   },
-  "include": ["./**/*.js", "./**/*.html", "shape.js", "ShapeManager.js", "main.js", "AssetsPath.js", "GameManager.js"]
+  "include": ["./**/*.js", "./**/*.html", "shape.js", "ShapeManager.js", "main.js", "AssetsPath.js", "GameManager.js", "AudioPaths.js"]
 }

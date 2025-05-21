@@ -1,4 +1,5 @@
 import { ShapeManager } from './ShapeManager.js';
+import { SWIPE_THRESHOLD } from './constants.js';
 const calibrateBtn = document.getElementById('calibrate-button');
 const calibrateContainer = document.getElementById('calibrate-container');
 const nextShapeBtn = document.getElementById('nextShape-calibrate-button');
@@ -77,9 +78,8 @@ let calibrateTouchStartX = 0;
 let calibrateTouchEndX = 0;
 
 function handleCalibrateSwipeGesture() {
-    const threshold = 30; // minimal distance to be considered a swipe
     const diff = calibrateTouchEndX - calibrateTouchStartX;
-    if (Math.abs(diff) < threshold) return;
+    if (Math.abs(diff) < SWIPE_THRESHOLD) return;
     // For calibration, any horizontal swipe moves to the next shape
     nextShapeBtn.click();
 }

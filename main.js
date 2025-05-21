@@ -6,6 +6,7 @@ import { audioPaths } from './AudioPaths.js';
 import { setCalibrateButtonActive } from './CalibrateManager.js';
 import { setCalibrateContainerActive } from './CalibrateManager.js';
 import { startCalibrating } from './CalibrateManager.js';
+import { SWIPE_THRESHOLD } from './constants.js';
 
 const startBtn = document.getElementById('start-button');
 const gameContainer = document.getElementById('game-container');
@@ -169,9 +170,8 @@ let touchStartX = 0;
 let touchEndX = 0;
 
 function handleSwipeGesture() {
-    const threshold = 30;
     const diff = touchEndX - touchStartX;
-    if (Math.abs(diff) < threshold) return;
+    if (Math.abs(diff) < SWIPE_THRESHOLD) return;
     if (diff > 0) {
         handleShapeClick('Square');
     } else {

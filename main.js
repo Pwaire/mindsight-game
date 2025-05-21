@@ -49,8 +49,6 @@ function handleShapeClick(buttonId) {
     gameManager.increaseRound();
   }
 
-  gameManager.debugSuccessRound();
-
   console.log('Succeed count ' + gameManager.succeededCount)
   if (gameManager.currentRound >= gameManager.roundCount) {
     setElementActive(gameContainer, false);

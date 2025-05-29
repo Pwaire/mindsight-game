@@ -123,11 +123,12 @@ function saveTrainingResult() {
         date: new Date().toISOString(),
         score: `${gameManager.succeededCount}/${gameManager.roundCount}`,
         rounds: gameManager.roundResults.map((r, idx) => ({
-            round: idx + 1,
-            shape: r.shape ? r.shape.name : null,
-            identified: r.success
+            s: r.shape.name == 'Star' ? 'S' : 'Q',
+            i: r.success ? 1 : 0
         }))
     };
+
+    console.log(data);
 
     window.parent.postMessage({ type: 'GAME_RESULT', result: data }, '*');
 }

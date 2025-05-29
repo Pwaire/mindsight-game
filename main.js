@@ -74,7 +74,6 @@ function handleShapeClick(buttonId) {
   audio.currentTime = 0;
   audio.play();
 
-  console.log('Succeed count ' + gameManager.succeededCount)
   if (gameManager.currentRound >= gameManager.roundCount) {
     setTimeout(() => {
       setElementActive(gameContainer, false);

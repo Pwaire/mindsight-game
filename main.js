@@ -50,6 +50,7 @@ function displayResult(score, totalRound){
     setElementActive(resultContainer, true);
     resultText.textContent = score + "/" + totalRound;
     renderRoundBoard();
+    postGameResult(gameManager.roundResults);
 }
 
 function handleShapeClick(buttonId) {
@@ -189,6 +190,20 @@ function RestartGame() {
     setCalibrateContainerActive(false);
 
     roundBoard.innerHTML = ''; // clear board
+}
+
+// Post the result to the embedding parent. The message contains:
+//   {
+//     type: 'GAME_RESULT',
+//     payload: { date: ISOString, results: Array }
+//   }
+// Consumers can listen for this event to receive a session summary.
+function postGameResult(results) {
+    const payload = {
+        date: new Date().toISOString(),
+        results
+    };
+    window.parent.postMessage({ type: 'GAME_RESULT', payload }, '*');
 }
 
 

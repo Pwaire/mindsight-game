@@ -50,6 +50,7 @@ function displayResult(score, totalRound){
     setElementActive(resultContainer, true);
     resultText.textContent = score + "/" + totalRound;
     renderRoundBoard();
+    saveTrainingResult();
 }
 
 function handleShapeClick(buttonId) {
@@ -86,7 +87,7 @@ function handleShapeClick(buttonId) {
   }
 }
 
-function renderRoundBoard() { 
+function renderRoundBoard() {
     roundBoard.innerHTML = '<h3>Round Results:</h3>';
     const list = document.createElement('ul');
     gameManager.roundResults.forEach(({ success, shape }, index) => {
@@ -115,6 +116,31 @@ function renderRoundBoard() {
         list.appendChild(li);
     });
     roundBoard.appendChild(list);
+}
+
+function saveTrainingResult() {
+    const data = {
+        date: new Date().toISOString(),
+        score: `${gameManager.succeededCount}/${gameManager.roundCount}`,
+        rounds: gameManager.roundResults.map((r, idx) => ({
+            round: idx + 1,
+            shape: r.shape ? r.shape.name : null,
+            right: r.success
+        }))
+    };
+
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `training_result_${Date.now()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    window.parent.postMessage({ type: 'GAME_RESULT', result: data }, '*');
 }
 
 function setupGameUI() {

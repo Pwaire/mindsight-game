@@ -125,7 +125,7 @@ function saveTrainingResult() {
         rounds: gameManager.roundResults.map((r, idx) => ({
             round: idx + 1,
             shape: r.shape ? r.shape.name : null,
-            right: r.success
+            identified: r.success
         }))
     };
 

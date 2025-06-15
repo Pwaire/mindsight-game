@@ -84,3 +84,10 @@ button:hover {
   list-style-type: none;
   padding-left: 0;
 }
+
+#game-container,
+#calibrate-container {
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+}

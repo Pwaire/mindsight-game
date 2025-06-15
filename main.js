@@ -229,6 +229,15 @@ function handleSwipeGesture() {
     }
 }
 
+document.addEventListener('keydown', (e) => {
+    if (isAwaitingShape) return;
+    if (e.key === 'ArrowRight') {
+        handleShapeClick('Square');
+    } else if (e.key === 'ArrowLeft') {
+        handleShapeClick('Star');
+    }
+});
+
 gameContainer.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX;
 }, false);

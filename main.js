@@ -16,6 +16,7 @@ const playAgainBtn = document.getElementById('playAgain-button');
 const endCalibrateBtn = document.getElementById('end-calibrate-button');
 const roundCounter = document.getElementById('round-counter');
 const roundBoard = document.getElementById('round-board');
+const fullscreenBtn = document.getElementById('fullscreen-button');
 const newShapeAudio = new Audio(audioPaths.new_shape_displayed);
 const swipeRuleAudio = new Audio(audioPaths.swipe_rule);
 const guessSuccessAudio = new Audio(audioPaths.guess_success);
@@ -175,6 +176,26 @@ function createButtonContainer() {
   gameContainer.appendChild(container);
   return container;
 }
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+function updateFullscreenButton() {
+    fullscreenBtn.textContent = document.fullscreenElement ? 'Exit Fullscreen' : 'Fullscreen';
+}
+
+fullscreenBtn.onclick = () => {
+    toggleFullscreen();
+};
+
+document.addEventListener('fullscreenchange', updateFullscreenButton);
+
+updateFullscreenButton();
 
 startBtn.onclick = () => {
   RestartGame();

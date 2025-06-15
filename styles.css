@@ -9,8 +9,9 @@ html, body {
 }
 
 .wrapper {
+  background: #f0f4f8;
   height: 100%;
-  max-width: 100vw; /* Allow full width */
+  max-width: 100vw;
   margin: 0;
   padding: 0;
   display: flex;
@@ -18,18 +19,16 @@ html, body {
   align-items: center;
 }
 
-
 .card {
-  background: #ffffff;
-  padding: 0; /* remove internal padding if you want full height */
+  background: #f0f4f8;
+  padding: 0;
   border-radius: 0;
   box-shadow: none;
   margin: 0;
   text-align: center;
   width: 100%;
-  height: 100vh; /* ensure it fills full height */
+  height: 100vh;
 }
-
 
 .hidden {
   display: none;
@@ -63,7 +62,6 @@ button:hover {
   background-color: #2980b9;
 }
 
-/* highlight button when user swipes */
 .swiping {
   background-color: #f1c40f;
 }
@@ -95,6 +93,7 @@ button:hover {
 
 #game-container,
 #calibrate-container {
+  background: #f0f4f8;
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;

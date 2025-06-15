@@ -2,6 +2,7 @@ import { ShapeManager } from './ShapeManager.js';
 import { SWIPE_THRESHOLD } from './constants.js';
 const calibrateBtn = document.getElementById('calibrate-button');
 const calibrateContainer = document.getElementById('calibrate-container');
+const calibrateContainerParent = document.getElementById('calibrate-container-parent');
 const nextShapeBtn = document.getElementById('nextShape-calibrate-button');
 const shapeNameElement = document.getElementById('calibrateShape-name');
 const calibrateStartBtn = document.getElementById('calibrate-start-button');
@@ -25,7 +26,7 @@ function playShapeAudio(shape) {
 }
 
 (() => {
-    setElementActive(calibrateContainer, false);
+    setElementActive(calibrateContainerParent, false);
     setElementActive(nextShapeBtn, false);
     setElementActive(calibrateStartBtn, false);
 })();
@@ -40,7 +41,7 @@ export function setCalibrateButtonActive(active){
 }
 
 export function setCalibrateContainerActive(active){
-    setElementActive(calibrateContainer, active);
+    setElementActive(calibrateContainerParent, active);
 }
 
 nextShapeBtn.onclick = () => {
@@ -61,7 +62,7 @@ nextShapeBtn.onclick = () => {
 calibrateBtn.onclick = startCalibrating;
 
 export function startCalibrating() {
-    setElementActive(calibrateContainer, true);
+    setElementActive(calibrateContainerParent, true);
     setElementActive(nextShapeBtn, true);
     setCalibrateButtonActive(false);
     setElementActive(calibrateStartBtn, true);

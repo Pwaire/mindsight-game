@@ -11,6 +11,7 @@ import { SWIPE_THRESHOLD } from './constants.js';
 const startBtn = document.getElementById('start-button');
 const calibrateStartBtn = document.getElementById('calibrate-start-button');
 const gameContainer = document.getElementById('game-container');
+const gameContainerParent = document.getElementById('game-container-parent');
 const resultContainer = document.getElementById('result-container');
 const resultText = document.getElementById('result-score');
 const playAgainBtn = document.getElementById('playAgain-button');
@@ -31,6 +32,7 @@ let gameManager;
     shapeManager = new ShapeManager('shape-text', 'shape-image');
     gameManager = new GameManager();
     setupGameUI();
+    setElementActive(gameContainerParent, false);
 })();
 
 function setElementActive(container, active) {
@@ -77,7 +79,7 @@ function handleShapeClick(buttonId) {
 
   if (gameManager.currentRound >= gameManager.roundCount) {
     setTimeout(() => {
-      setElementActive(gameContainer, false);
+      setElementActive(gameContainerParent, false);
       displayResult(gameManager.succeededCount, gameManager.roundCount);
     }, 500);
   } else {
@@ -190,7 +192,7 @@ playAgainBtn.onclick = () => {
 }
 
 endCalibrateBtn.onclick = () => {
-      setElementActive(gameContainer, false);
+      setElementActive(gameContainerParent, false);
       setElementActive(resultContainer, false);
       setCalibrateContainerActive(true);
       setElementActive(startBtn, true);
@@ -204,7 +206,7 @@ function RestartGame() {
     setElementActive(resultContainer, false);
     setElementActive(startBtn, false);
     setElementActive(calibrateStartBtn, false);
-    setElementActive(gameContainer, true);
+    setElementActive(gameContainerParent, true);
 
     setCalibrateButtonActive(false);
     setCalibrateContainerActive(false);

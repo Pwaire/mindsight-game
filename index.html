@@ -10,6 +10,7 @@
   <main class="wrapper">
     <button id="calibrate-button" class="primary-button">Calibrate</button>
 
+    <section id="calibrate-container-parent" >
     <section id="calibrate-container" class="card hidden">
   <div class="calibrate-content">
     <img id="calibrateShape-image" alt="Shape Image" />
@@ -18,16 +19,18 @@
     <button id="calibrate-start-button" class="start-button">Start Game</button>
   </div>
   <div id="switchCalibrateShape-container"></div>
+  </section>
 </section>
 
     <button id="start-button" class="start-button">Start Game</button>
 
-    <section id="game-container" class="card hidden">
-      <p id="round-counter"></p>
-      <img id="shape-image" alt="Shape Image" />
-      <div id="button-container"></div>
+    <section id="game-container-parent" class="card hidden">
+      <section id="game-container" class="card hidden">
+        <p id="round-counter"></p>
+        <img id="shape-image" alt="Shape Image" />
+        <div id="button-container"></div>
+      </section>
     </section>
-
     <section id="result-container" class="card hidden">
       <h2>Your Score:</h2>
       <p id="result-score"></p>

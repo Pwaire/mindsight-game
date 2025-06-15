@@ -4,6 +4,8 @@ const calibrateBtn = document.getElementById('calibrate-button');
 const calibrateContainer = document.getElementById('calibrate-container');
 const nextShapeBtn = document.getElementById('nextShape-calibrate-button');
 const shapeNameElement = document.getElementById('calibrateShape-name');
+const calibrateStartBtn = document.getElementById('calibrate-start-button');
+const startBtnOutside = document.getElementById('start-button');
 
 const shapeImgElement = document.getElementById('calibrateShape-image');
 
@@ -25,6 +27,7 @@ function playShapeAudio(shape) {
 (() => {
     setElementActive(calibrateContainer, false);
     setElementActive(nextShapeBtn, false);
+    setElementActive(calibrateStartBtn, false);
 })();
 
 export function setElementActive(container, active) {
@@ -61,6 +64,8 @@ export function startCalibrating() {
     setElementActive(calibrateContainer, true);
     setElementActive(nextShapeBtn, true);
     setCalibrateButtonActive(false);
+    setElementActive(calibrateStartBtn, true);
+    setElementActive(startBtnOutside, false);
     SetRandomShape();
 }
 

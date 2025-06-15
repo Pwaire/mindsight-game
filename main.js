@@ -9,6 +9,7 @@ import { startCalibrating } from './CalibrateManager.js';
 import { SWIPE_THRESHOLD } from './constants.js';
 
 const startBtn = document.getElementById('start-button');
+const calibrateStartBtn = document.getElementById('calibrate-start-button');
 const gameContainer = document.getElementById('game-container');
 const resultContainer = document.getElementById('result-container');
 const resultText = document.getElementById('result-score');
@@ -180,6 +181,10 @@ startBtn.onclick = () => {
   RestartGame();
 };
 
+calibrateStartBtn.onclick = () => {
+    RestartGame();
+};
+
 playAgainBtn.onclick = () => {
     RestartGame();
 }
@@ -198,6 +203,7 @@ function RestartGame() {
     DisplayRandomShape();
     setElementActive(resultContainer, false);
     setElementActive(startBtn, false);
+    setElementActive(calibrateStartBtn, false);
     setElementActive(gameContainer, true);
 
     setCalibrateButtonActive(false);

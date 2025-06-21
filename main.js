@@ -35,7 +35,6 @@ let langStrings;
 
 (() => {
     currentLang = LangHelper.getLangFromURL();
-    console.log("Lang: " + currentLang);
     langStrings = LangHelper.getStrings(currentLang);
     LangHelper.applyUIText(currentLang);
     const audioPaths = getAudioPaths(currentLang);

@@ -13,14 +13,19 @@ export const audioFileNames = {
 
 /**
  * Returns an object containing the full paths for all audio files for the
- * provided language. The files are expected to live under
- * `audio/<lang>/`.
+ * provided language. Most files live under `audio/<lang>/` while
+ * language-agnostic cues like `guess_success` and `guess_error`
+ * reside directly under `audio/`.
  *
  * @param {string} lang ISO language code like `en` or `fr`.
  */
 export function getAudioPaths(lang = 'en') {
   const base = `audio/${lang}/`;
+  const globalBase = 'audio/';
   return Object.fromEntries(
-    Object.entries(audioFileNames).map(([key, file]) => [key, base + file])
+    Object.entries(audioFileNames).map(([key, file]) => {
+      const root = (key === 'guess_success' || key === 'guess_error') ? globalBase : base;
+      return [key, root + file];
+    })
   );
 }

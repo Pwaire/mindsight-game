@@ -4,6 +4,9 @@ export const translations = {
     start_game: 'Start Game',
     next: 'Next',
     play_again: 'Play Again',
+    star: 'Star',
+    square: 'Square',
+    shape_word: 'Shape',
     your_score: 'Your Score:',
     round_results: 'Round Results:',
     round_of: (c, t) => `Round ${c} of ${t}`,
@@ -13,6 +16,9 @@ export const translations = {
     start_game: 'Iniciar Juego',
     next: 'Siguiente',
     play_again: 'Jugar de Nuevo',
+    star: 'Estrella',
+    square: 'Cuadrado',
+    shape_word: 'Forma',
     your_score: 'Tu Puntuación:',
     round_results: 'Resultados de la Ronda:',
     round_of: (c, t) => `Ronda ${c} de ${t}`,
@@ -27,6 +33,14 @@ export class LangHelper {
 
   static getStrings(lang) {
     return translations[lang] || translations.en;
+  }
+
+  static translateShapeName(name, lang = 'en') {
+    const t = this.getStrings(lang);
+    const key = name.toLowerCase();
+    if (key.includes('star')) return t.star;
+    if (key.includes('square')) return t.square;
+    return name;
   }
 
   static applyUIText(lang) {

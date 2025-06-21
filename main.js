@@ -119,14 +119,14 @@ function renderRoundBoard() {
         }
 
         img.src = shapePaths[shapeKey] || '';
-        img.alt = `Shape ${index + 1}`;
+        img.alt = `${langStrings.shape_word} ${index + 1}`;
         img.style.width = '30px';
         img.style.height = '30px';
         img.style.marginLeft = '20px';
         img.style.marginBottom = '20px';
         img.style.verticalAlign = 'middle';
 
-        li.textContent = `Shape ${index + 1}:`;
+        li.textContent = `${langStrings.shape_word} ${index + 1}:`;
         li.appendChild(img);
         list.appendChild(li);
     });
@@ -153,7 +153,7 @@ function setupGameUI() {
 
   shapeManager.availableShapes.forEach(s => {
     const btn = document.createElement('button');
-    btn.textContent = s.name;
+    btn.textContent = LangHelper.translateShapeName(s.name, currentLang);
     btn.id = s.name;
     btn.onclick = () => handleShapeClick(btn.id);
     buttonContainer.appendChild(btn);

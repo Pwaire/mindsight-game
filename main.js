@@ -7,6 +7,8 @@ import { setCalibrateButtonActive } from './CalibrateManager.js';
 import { setCalibrateContainerActive } from './CalibrateManager.js';
 import { startCalibrating } from './CalibrateManager.js';
 import { SWIPE_THRESHOLD } from './constants.js';
+import { LangHelper } from './LangHelper.js';
+
 
 const startBtn = document.getElementById('start-button');
 const calibrateStartBtn = document.getElementById('calibrate-start-button');
@@ -28,12 +30,17 @@ let isAwaitingShape = false;
 let shapeManager; 
 let gameManager;
 
+let currentLang;
+
 (() => {
+    currentLang = LangHelper.getLangFromURL();
+    console.log("Lang: " + currentLang);
     shapeManager = new ShapeManager('shape-text', 'shape-image');
     gameManager = new GameManager();
     setupGameUI();
     setElementActive(gameContainerParent, false);
 })();
+
 
 function setElementActive(container, active) {
     var value = active == true ? 'block' : 'none';
@@ -241,3 +248,27 @@ gameContainer.addEventListener('touchend', (e) => {
     touchEndX = e.changedTouches[0].screenX;
     handleSwipeGesture();
 }, false);
+
+// -- Mobile tap left/right support --
+gameContainer.addEventListener('touchend', (e) => {
+    // Use existing swipe if swipe distance is sufficient
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchEndX - touchStartX;
+    if (Math.abs(diff) >= SWIPE_THRESHOLD) {
+        handleSwipeGesture();
+        return;
+    }
+
+    // If it's just a tap, determine which side of the screen was touched
+    const screenWidth = window.innerWidth;
+    const touchX = e.changedTouches[0].clientX;
+
+    if (isAwaitingShape) return;
+
+    if (touchX < screenWidth / 2) {
+        handleShapeClick('Star'); // left side = Star
+    } else {
+        handleShapeClick('Square'); // right side = Square
+    }
+});
+

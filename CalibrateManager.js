@@ -10,6 +10,7 @@ const calibrateStartBtn = document.getElementById('calibrate-start-button');
 const startBtnOutside = document.getElementById('start-button');
 
 const currentLang = LangHelper.getLangFromURL();
+LangHelper.applyUIText(currentLang);
 
 const shapeImgElement = document.getElementById('calibrateShape-image');
 

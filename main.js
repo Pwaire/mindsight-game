@@ -31,10 +31,12 @@ let shapeManager;
 let gameManager;
 
 let currentLang;
+let langStrings;
 
 (() => {
     currentLang = LangHelper.getLangFromURL();
-    console.log("Lang: " + currentLang);
+    langStrings = LangHelper.getStrings(currentLang);
+    LangHelper.applyUIText(currentLang);
     const audioPaths = getAudioPaths(currentLang);
     newShapeAudio = new Audio(audioPaths.new_shape_displayed);
     swipeRuleAudio = new Audio(audioPaths.swipe_rule);
@@ -101,7 +103,7 @@ function handleShapeClick(buttonId) {
 }
 
 function renderRoundBoard() {
-    roundBoard.innerHTML = '<h3>Round Results:</h3>';
+    roundBoard.innerHTML = `<h3>${langStrings.round_results}</h3>`;
     const list = document.createElement('ul');
     gameManager.roundResults.forEach(({ success, shape }, index) => {
         const li = document.createElement('li');
@@ -177,7 +179,10 @@ function DisplayRandomShape() {
 }
 
 function RefreshRoundCount() {
-    roundCounter.textContent = `Round ${gameManager.currentRound + 1} of ${gameManager.roundCount}`;
+    roundCounter.textContent = langStrings.round_of(
+        gameManager.currentRound + 1,
+        gameManager.roundCount
+    );
 }
 
 function createButtonContainer() {

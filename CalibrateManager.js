@@ -1,5 +1,6 @@
 import { ShapeManager } from './ShapeManager.js';
 import { SWIPE_THRESHOLD } from './constants.js';
+import { LangHelper } from './LangHelper.js';
 const calibrateBtn = document.getElementById('calibrate-button');
 const calibrateContainer = document.getElementById('calibrate-container');
 const calibrateContainerParent = document.getElementById('calibrate-container-parent');
@@ -7,6 +8,8 @@ const nextShapeBtn = document.getElementById('nextShape-calibrate-button');
 const shapeNameElement = document.getElementById('calibrateShape-name');
 const calibrateStartBtn = document.getElementById('calibrate-start-button');
 const startBtnOutside = document.getElementById('start-button');
+
+const currentLang = LangHelper.getLangFromURL();
 
 const shapeImgElement = document.getElementById('calibrateShape-image');
 
@@ -45,7 +48,7 @@ export function setCalibrateContainerActive(active){
 }
 
 nextShapeBtn.onclick = () => {
-    const manager = new ShapeManager(null, null);
+    const manager = new ShapeManager(null, null, currentLang);
     const shapes = manager.availableShapes;
 
     const currentIndex = shapes.findIndex(shape => shape.name === currentDisplayedShape.name);
@@ -71,7 +74,7 @@ export function startCalibrating() {
 }
 
 function SetRandomShape() {
-    const manager = new ShapeManager(null, null);
+    const manager = new ShapeManager(null, null, currentLang);
     currentDisplayedShape = manager.getRandomShape();
     shapeImg.src = currentDisplayedShape.imagePath;
     shapeImg.alt = currentDisplayedShape.name;

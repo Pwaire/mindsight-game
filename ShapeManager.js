@@ -1,29 +1,40 @@
 import { Shape } from './shape.js';
 import { shapePaths } from './AssetsPath.js';
-import { audioPaths } from './AudioPaths.js';
+import { getAudioPaths } from './AudioPaths.js';
 
-export const availableShapes = [
-  new Shape('Star', shapePaths.black_star, audioPaths.star),
-  new Shape('Square', shapePaths.black_square, audioPaths.square)
-];
-
+/**
+ * Manager in charge of providing shapes and their associated audio files.
+ * The available shapes depend on the language so the audio descriptions can
+ * be localised.
+ */
 export class ShapeManager {
+  _currentShape;
+  _textElement;
+  _imageElement;
+  _lang;
+  _availableShapes;
 
-_currentShape;
-_textElement;
-_imageElement;
-
-  constructor(textId, imageId) {
+  constructor(textId, imageId, lang = 'en') {
     this._textElement = document.getElementById(textId);
     this._imageElement = document.getElementById(imageId);
+    this._lang = lang;
+    this._availableShapes = this._createShapes();
+  }
+
+  _createShapes() {
+    const audioPaths = getAudioPaths(this._lang);
+    return [
+      new Shape('Star', shapePaths.black_star, audioPaths.star),
+      new Shape('Square', shapePaths.black_square, audioPaths.square)
+    ];
   }
 
   getRandomShape() {
-    return availableShapes[Math.floor(Math.random() * availableShapes.length)];
+    return this._availableShapes[Math.floor(Math.random() * this._availableShapes.length)];
   }
 
   get availableShapes() {
-    return availableShapes;
+    return this._availableShapes;
   }
 
   get currentShape(){

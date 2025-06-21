@@ -83,9 +83,7 @@ function handleShapeClick(buttonId) {
       displayResult(gameManager.succeededCount, gameManager.roundCount);
     }, 500);
   } else {
-    setTimeout(() => {
-      DisplayRandomShape();
-    }, 500);
+    DisplayRandomShape();
   }
 }
 
@@ -159,9 +157,6 @@ function DisplayRandomShape() {
         swipeRuleAudio.currentTime = 0;
         swipeRuleAudio.play();
         isFirstShape = false;
-    } else {
-        newShapeAudio.currentTime = 0;
-        newShapeAudio.play();
     }
 
     setButtonsEnabled(true);

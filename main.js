@@ -2,7 +2,7 @@ import { Shape } from './shape.js';
 import { ShapeManager } from './ShapeManager.js';
 import { GameManager } from './GameManager.js';
 import { shapePaths } from './AssetsPath.js';
-import { audioPaths } from './AudioPaths.js';
+import { getAudioPaths } from './AudioPaths.js';
 import { setCalibrateButtonActive } from './CalibrateManager.js';
 import { setCalibrateContainerActive } from './CalibrateManager.js';
 import { startCalibrating } from './CalibrateManager.js';
@@ -20,10 +20,10 @@ const playAgainBtn = document.getElementById('playAgain-button');
 const endCalibrateBtn = document.getElementById('end-calibrate-button');
 const roundCounter = document.getElementById('round-counter');
 const roundBoard = document.getElementById('round-board');
-const newShapeAudio = new Audio(audioPaths.new_shape_displayed);
-const swipeRuleAudio = new Audio(audioPaths.swipe_rule);
-const guessSuccessAudio = new Audio(audioPaths.guess_success);
-const guessErrorAudio = new Audio(audioPaths.guess_error);
+let newShapeAudio;
+let swipeRuleAudio;
+let guessSuccessAudio;
+let guessErrorAudio;
 let isFirstShape = true;
 let isAwaitingShape = false;
 
@@ -35,7 +35,13 @@ let currentLang;
 (() => {
     currentLang = LangHelper.getLangFromURL();
     console.log("Lang: " + currentLang);
-    shapeManager = new ShapeManager('shape-text', 'shape-image');
+    const audioPaths = getAudioPaths(currentLang);
+    newShapeAudio = new Audio(audioPaths.new_shape_displayed);
+    swipeRuleAudio = new Audio(audioPaths.swipe_rule);
+    guessSuccessAudio = new Audio(audioPaths.guess_success);
+    guessErrorAudio = new Audio(audioPaths.guess_error);
+
+    shapeManager = new ShapeManager('shape-text', 'shape-image', currentLang);
     gameManager = new GameManager();
     setupGameUI();
     setElementActive(gameContainerParent, false);

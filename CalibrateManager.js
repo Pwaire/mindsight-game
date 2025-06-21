@@ -58,7 +58,7 @@ nextShapeBtn.onclick = () => {
 
     shapeImg.src = currentDisplayedShape.imagePath;
     shapeImg.alt = currentDisplayedShape.name;
-    shapeNameElement.textContent = currentDisplayedShape.name; // Show name
+    shapeNameElement.textContent = LangHelper.translateShapeName(currentDisplayedShape.name, currentLang); // Show localized name
     playShapeAudio(currentDisplayedShape);
 };
 
@@ -79,7 +79,7 @@ function SetRandomShape() {
     currentDisplayedShape = manager.getRandomShape();
     shapeImg.src = currentDisplayedShape.imagePath;
     shapeImg.alt = currentDisplayedShape.name;
-    shapeNameElement.textContent = currentDisplayedShape.name; // Show name
+    shapeNameElement.textContent = LangHelper.translateShapeName(currentDisplayedShape.name, currentLang); // Show localized name
     playShapeAudio(currentDisplayedShape);
 }
 

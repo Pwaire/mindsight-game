@@ -196,6 +196,7 @@ function createButtonContainer() {
 }
 
 function showTutorial() {
+  setElementActive(resultContainer, false);
   setElementActive(startBtn, false);
   setElementActive(calibrateStartBtn, false);
   setCalibrateContainerActive(false);
@@ -226,7 +227,7 @@ calibrateStartBtn.onclick = () => {
 };
 
 playAgainBtn.onclick = () => {
-    RestartGame();
+    showTutorial();
 }
 
 endCalibrateBtn.onclick = () => {

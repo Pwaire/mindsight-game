@@ -200,6 +200,7 @@ function showTutorial() {
   setCalibrateContainerActive(false);
   setCalibrateButtonActive(false);
   setElementActive(tutorialContainer, true);
+  tutorialContainer.style.display = 'flex';
 
   AudioManager.play(explainRulesAudio);
 

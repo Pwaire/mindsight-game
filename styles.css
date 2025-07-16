@@ -36,6 +36,12 @@ html, body {
   display: none;
 }
 
+#game-container.hidden,
+#calibrate-container.hidden,
+#tutorial-container.hidden {
+  display: none;
+}
+
 .calibrate-content {
   display: flex;
   flex-direction: column;

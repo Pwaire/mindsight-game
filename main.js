@@ -6,6 +6,7 @@ import { getAudioPaths } from './AudioPaths.js';
 import { setCalibrateButtonActive } from './CalibrateManager.js';
 import { setCalibrateContainerActive } from './CalibrateManager.js';
 import { startCalibrating } from './CalibrateManager.js';
+import { AudioManager } from './AudioManager.js';
 import { SWIPE_THRESHOLD } from './constants.js';
 import { LangHelper } from './LangHelper.js';
 
@@ -40,11 +41,11 @@ let langStrings;
     langStrings = LangHelper.getStrings(currentLang);
     LangHelper.applyUIText(currentLang);
     const audioPaths = getAudioPaths(currentLang);
-    newShapeAudio = new Audio(audioPaths.new_shape_displayed);
-    swipeRuleAudio = new Audio(audioPaths.swipe_rule);
-    guessSuccessAudio = new Audio(audioPaths.guess_success);
-    guessErrorAudio = new Audio(audioPaths.guess_error);
-    explainRulesAudio = new Audio(audioPaths.explain_rules);
+    newShapeAudio = AudioManager.register(new Audio(audioPaths.new_shape_displayed));
+    swipeRuleAudio = AudioManager.register(new Audio(audioPaths.swipe_rule));
+    guessSuccessAudio = AudioManager.register(new Audio(audioPaths.guess_success));
+    guessErrorAudio = AudioManager.register(new Audio(audioPaths.guess_error));
+    explainRulesAudio = AudioManager.register(new Audio(audioPaths.explain_rules));
 
     shapeManager = new ShapeManager('shape-text', 'shape-image', currentLang);
     gameManager = new GameManager();
@@ -92,8 +93,7 @@ function handleShapeClick(buttonId) {
   gameManager.increaseRound();
 
   const audio = isCorrect ? guessSuccessAudio : guessErrorAudio;
-  audio.currentTime = 0;
-  audio.play();
+  AudioManager.play(audio);
 
   if (gameManager.currentRound >= gameManager.roundCount) {
     setTimeout(() => {
@@ -172,8 +172,7 @@ function DisplayRandomShape() {
         shapeImg.src = shapeManager.currentShape.imagePath;
     }
     if (isFirstShape) {
-        swipeRuleAudio.currentTime = 0;
-        swipeRuleAudio.play();
+        AudioManager.play(swipeRuleAudio);
         isFirstShape = false;
     }
 
@@ -199,10 +198,10 @@ function showTutorial() {
   setElementActive(startBtn, false);
   setElementActive(calibrateStartBtn, false);
   setCalibrateContainerActive(false);
+  setCalibrateButtonActive(false);
   setElementActive(tutorialContainer, true);
 
-  explainRulesAudio.currentTime = 0;
-  explainRulesAudio.play();
+  AudioManager.play(explainRulesAudio);
 
   const startGame = (e) => {
     if (e.type === 'keydown' && e.code !== 'Space') return;

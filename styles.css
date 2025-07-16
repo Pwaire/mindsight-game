@@ -42,9 +42,13 @@ html, body {
   align-items: center;
 }
 
-#shape-image,
-#calibrateShape-image {
+#shape-image {
   max-width: 200px;
+  margin-bottom: 20px;
+}
+
+#calibrateShape-image {
+  max-width: 220px;
   margin-bottom: 20px;
 }
 

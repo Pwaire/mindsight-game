@@ -1,6 +1,7 @@
 import { ShapeManager } from './ShapeManager.js';
 import { SWIPE_THRESHOLD } from './constants.js';
 import { LangHelper } from './LangHelper.js';
+import { AudioManager } from './AudioManager.js';
 const calibrateBtn = document.getElementById('calibrate-button');
 const calibrateContainer = document.getElementById('calibrate-container');
 const calibrateContainerParent = document.getElementById('calibrate-container-parent');
@@ -21,12 +22,12 @@ if (!(shapeImgElement instanceof HTMLImageElement)) {
 }
 
 const shapeImg = shapeImgElement;
-const audio = new Audio();
+const audio = AudioManager.register(new Audio());
 
 function playShapeAudio(shape) {
     if (!shape || !shape.audioPath) return;
     audio.src = shape.audioPath;
-    audio.play();
+    AudioManager.play(audio);
 }
 
 (() => {

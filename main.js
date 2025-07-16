@@ -27,6 +27,7 @@ let swipeRuleAudio;
 let guessSuccessAudio;
 let guessErrorAudio;
 let explainRulesAudio;
+let sessionCompletedAudio;
 let isFirstShape = true;
 let isAwaitingShape = false;
 
@@ -46,6 +47,7 @@ let langStrings;
     guessSuccessAudio = AudioManager.register(new Audio(audioPaths.guess_success));
     guessErrorAudio = AudioManager.register(new Audio(audioPaths.guess_error));
     explainRulesAudio = AudioManager.register(new Audio(audioPaths.explain_rules));
+    sessionCompletedAudio = AudioManager.register(new Audio(audioPaths.session_completed));
 
     shapeManager = new ShapeManager('shape-text', 'shape-image', currentLang);
     gameManager = new GameManager();
@@ -71,6 +73,7 @@ function setButtonsEnabled(enabled) {
 function displayResult(score, totalRound){
     setElementActive(resultContainer, true);
     resultText.textContent = score + "/" + totalRound;
+    AudioManager.play(sessionCompletedAudio);
     renderRoundBoard();
     saveTrainingResult();
 }

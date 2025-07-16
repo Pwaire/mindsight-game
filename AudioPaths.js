@@ -4,7 +4,8 @@ export const audioFileNames = {
   swipe_rule: 'swipe_rule.mp3',
   explain_rules: 'explain_rules.mp3',
   guess_success: 'guess_success.mp3',
-  guess_error: 'guess_error.mp3'
+  guess_error: 'guess_error.mp3',
+  session_completed: 'session_completed.mp3'
 };
 
 export function getAudioPaths(lang = 'en') {

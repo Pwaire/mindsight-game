@@ -2,6 +2,7 @@ export const audioFileNames = {
   star: 'star.mp3',
   square: 'square.mp3',
   swipe_rule: 'swipe_rule.mp3',
+  explain_rules: 'explain_rules.mp3',
   guess_success: 'guess_success.mp3',
   guess_error: 'guess_error.mp3'
 };

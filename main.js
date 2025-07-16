@@ -20,10 +20,12 @@ const playAgainBtn = document.getElementById('playAgain-button');
 const endCalibrateBtn = document.getElementById('end-calibrate-button');
 const roundCounter = document.getElementById('round-counter');
 const roundBoard = document.getElementById('round-board');
+const tutorialContainer = document.getElementById('tutorial-container');
 let newShapeAudio;
 let swipeRuleAudio;
 let guessSuccessAudio;
 let guessErrorAudio;
+let explainRulesAudio;
 let isFirstShape = true;
 let isAwaitingShape = false;
 
@@ -42,6 +44,7 @@ let langStrings;
     swipeRuleAudio = new Audio(audioPaths.swipe_rule);
     guessSuccessAudio = new Audio(audioPaths.guess_success);
     guessErrorAudio = new Audio(audioPaths.guess_error);
+    explainRulesAudio = new Audio(audioPaths.explain_rules);
 
     shapeManager = new ShapeManager('shape-text', 'shape-image', currentLang);
     gameManager = new GameManager();
@@ -192,12 +195,33 @@ function createButtonContainer() {
   return container;
 }
 
+function showTutorial() {
+  setElementActive(startBtn, false);
+  setElementActive(calibrateStartBtn, false);
+  setCalibrateContainerActive(false);
+  setElementActive(tutorialContainer, true);
+
+  explainRulesAudio.currentTime = 0;
+  explainRulesAudio.play();
+
+  const startGame = (e) => {
+    if (e.type === 'keydown' && e.code !== 'Space') return;
+    document.removeEventListener('keydown', startGame);
+    document.removeEventListener('touchend', startGame);
+    setElementActive(tutorialContainer, false);
+    RestartGame();
+  };
+
+  document.addEventListener('keydown', startGame);
+  document.addEventListener('touchend', startGame);
+}
+
 startBtn.onclick = () => {
-  RestartGame();
+  showTutorial();
 };
 
 calibrateStartBtn.onclick = () => {
-    RestartGame();
+    showTutorial();
 };
 
 playAgainBtn.onclick = () => {

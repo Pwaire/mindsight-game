@@ -28,7 +28,6 @@ let guessSuccessAudio;
 let guessErrorAudio;
 let explainRulesAudio;
 let sessionCompletedAudio;
-let isFirstShape = true;
 let isAwaitingShape = false;
 
 let shapeManager; 
@@ -104,7 +103,9 @@ function handleShapeClick(buttonId) {
       displayResult(gameManager.succeededCount, gameManager.roundCount);
     }, 500);
   } else {
-    DisplayRandomShape();
+    setTimeout(() => {
+        DisplayRandomShape();
+      }, 500);
   }
 }
 
@@ -174,10 +175,7 @@ function DisplayRandomShape() {
     if (shapeImg instanceof HTMLImageElement) {
         shapeImg.src = shapeManager.currentShape.imagePath;
     }
-    if (isFirstShape) {
-        AudioManager.play(swipeRuleAudio);
-        isFirstShape = false;
-    }
+    AudioManager.play(swipeRuleAudio);
 
     setButtonsEnabled(true);
     isAwaitingShape = false;
@@ -240,7 +238,6 @@ endCalibrateBtn.onclick = () => {
 }
 
 function RestartGame() {
-    isFirstShape = true;
     gameManager.reset();
     DisplayRandomShape();
     setElementActive(resultContainer, false);

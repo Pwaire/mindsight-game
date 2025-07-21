@@ -90,8 +90,12 @@ let calibrateTouchEndX = 0;
 
 function handleCalibrateSwipeGesture() {
     const diff = calibrateTouchEndX - calibrateTouchStartX;
-    if (Math.abs(diff) < SWIPE_THRESHOLD) return;
-    // For calibration, any horizontal swipe moves to the next shape
+    if (Math.abs(diff) < SWIPE_THRESHOLD) {
+        // Treat as a tap when movement is below the swipe threshold
+        nextShapeBtn.click();
+        return;
+    }
+    // For calibration, any horizontal swipe also moves to the next shape
     nextShapeBtn.click();
 }
 
@@ -101,6 +105,16 @@ calibrateContainer.addEventListener('touchstart', (e) => {
 
 calibrateContainer.addEventListener('touchend', (e) => {
     calibrateTouchEndX = e.changedTouches[0].screenX;
+    // Ignore taps on buttons to prevent double actions
+    if (e.target.closest('button')) return;
     handleCalibrateSwipeGesture();
 }, false);
+
+// -- Keyboard support --
+document.addEventListener('keydown', (e) => {
+    if (e.code !== 'Space') return;
+    const containerVisible = getComputedStyle(calibrateContainerParent).display !== 'none';
+    if (!containerVisible) return;
+    nextShapeBtn.click();
+});
 

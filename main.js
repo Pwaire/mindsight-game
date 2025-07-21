@@ -233,7 +233,6 @@ playAgainBtn.onclick = () => {
 endCalibrateBtn.onclick = () => {
       setElementActive(gameContainerParent, false);
       setElementActive(resultContainer, false);
-      setCalibrateContainerActive(true);
       setElementActive(startBtn, true);
       startCalibrating();
 }

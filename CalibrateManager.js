@@ -2,6 +2,7 @@ import { ShapeManager } from './ShapeManager.js';
 import { SWIPE_THRESHOLD } from './constants.js';
 import { LangHelper } from './LangHelper.js';
 import { AudioManager } from './AudioManager.js';
+import { getAudioPaths } from './AudioPaths.js';
 const calibrateBtn = document.getElementById('calibrate-button');
 const calibrateContainer = document.getElementById('calibrate-container');
 const calibrateContainerParent = document.getElementById('calibrate-container-parent');
@@ -23,6 +24,7 @@ if (!(shapeImgElement instanceof HTMLImageElement)) {
 
 const shapeImg = shapeImgElement;
 const audio = AudioManager.register(new Audio());
+let calibrateRulesAudio;
 
 function playShapeAudio(shape) {
     if (!shape || !shape.audioPath) return;
@@ -34,6 +36,8 @@ function playShapeAudio(shape) {
     setElementActive(calibrateContainerParent, false);
     setElementActive(nextShapeBtn, false);
     setElementActive(calibrateStartBtn, false);
+    const audioPaths = getAudioPaths(currentLang);
+    calibrateRulesAudio = AudioManager.register(new Audio(audioPaths.calibrate_rules));
 })();
 
 export function setElementActive(container, active) {
@@ -67,12 +71,38 @@ nextShapeBtn.onclick = () => {
 calibrateBtn.onclick = startCalibrating;
 
 export function startCalibrating() {
-    setElementActive(calibrateContainerParent, true);
+    setCalibrateContainerActive(false);
+    showCalibrateTutorial();
+}
+
+function beginCalibrationSession() {
+    setCalibrateContainerActive(true);
     setElementActive(nextShapeBtn, true);
     setCalibrateButtonActive(false);
     setElementActive(calibrateStartBtn, true);
     setElementActive(startBtnOutside, false);
     SetRandomShape();
+}
+
+function showCalibrateTutorial() {
+    const tutorialContainer = document.getElementById('tutorial-container');
+    if (!tutorialContainer) return;
+    setCalibrateButtonActive(false);
+    setElementActive(startBtnOutside, false);
+    setElementActive(tutorialContainer, true);
+    tutorialContainer.style.display = 'flex';
+    AudioManager.play(calibrateRulesAudio);
+
+    const begin = (e) => {
+        if (e.type === 'keydown' && e.code !== 'Space') return;
+        document.removeEventListener('keydown', begin);
+        document.removeEventListener('touchend', begin);
+        setElementActive(tutorialContainer, false);
+        beginCalibrationSession();
+    };
+
+    document.addEventListener('keydown', begin);
+    document.addEventListener('touchend', begin);
 }
 
 function SetRandomShape() {

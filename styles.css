@@ -167,13 +167,13 @@ button:hover {
   #button-container button {
     flex: 1;
     margin: 0;
-    height: 60px;
+    height: 400px;
     font-size: 1.2rem;
     border-radius: 0;
   }
 
   #shape-image {
-    margin-top: 40px;
+    margin-top: 100px;
   }
 
   #game-container,

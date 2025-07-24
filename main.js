@@ -210,6 +210,11 @@ function showTutorial() {
 
   const startGame = (e) => {
     if (e.type === 'keydown' && e.code !== 'Space') return;
+    // Prevent the touch event from triggering a subsequent click on
+    // the now-visible game UI elements
+    if (e.cancelable) {
+      e.preventDefault();
+    }
     document.removeEventListener('keydown', startGame);
     document.removeEventListener('touchend', startGame);
     setElementActive(tutorialContainer, false);

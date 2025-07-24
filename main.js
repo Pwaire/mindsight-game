@@ -60,20 +60,31 @@ function isMobile() {
     return /Mobi|Android/i.test(navigator.userAgent);
 }
 
-document.addEventListener('fullscreenchange', () => {
-    const isFs = !!document.fullscreenElement;
-    if (isFs && !isMobile()) {
+function isBrowserFullscreen() {
+    return window.innerHeight === screen.height && window.innerWidth === screen.width;
+}
+
+function updateFullscreenButtonVisibility() {
+    const inDomFullscreen = !!document.fullscreenElement;
+    const inBrowserFullscreen = isBrowserFullscreen();
+    if ((inDomFullscreen || inBrowserFullscreen) && !isMobile()) {
         exitFullscreenBtn.style.display = 'block';
     } else {
         exitFullscreenBtn.style.display = 'none';
     }
-});
+}
+
+document.addEventListener('fullscreenchange', updateFullscreenButtonVisibility);
+window.addEventListener('resize', updateFullscreenButtonVisibility);
 
 if (exitFullscreenBtn) {
     exitFullscreenBtn.onclick = () => {
         exitFullscreen();
     };
 }
+
+// Initialize button visibility on load
+updateFullscreenButtonVisibility();
 
 
 function setElementActive(container, active) {

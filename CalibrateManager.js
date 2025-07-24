@@ -143,10 +143,20 @@ calibrateContainer.addEventListener('touchend', (e) => {
 }, false);
 
 // -- Keyboard support --
+let spaceHeld = false;
+
 document.addEventListener('keydown', (e) => {
     if (e.code !== 'Space') return;
     const containerVisible = getComputedStyle(calibrateContainerParent).display !== 'none';
     if (!containerVisible) return;
+    if (spaceHeld) return;
+    spaceHeld = true;
     nextShapeBtn.click();
+});
+
+document.addEventListener('keyup', (e) => {
+    if (e.code === 'Space') {
+        spaceHeld = false;
+    }
 });
 

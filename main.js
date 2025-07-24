@@ -68,8 +68,8 @@ function isBrowserFullscreen() {
 function updateFullscreenButtonVisibility() {
     const inDomFullscreen = !!document.fullscreenElement;
     const inBrowserFullscreen = isBrowserFullscreen();
-    const showExit = (inDomFullscreen || inBrowserFullscreen) && !isMobile();
-    const showEnter = !showExit && !isMobile();
+    const showExit = inDomFullscreen || inBrowserFullscreen;
+    const showEnter = !showExit;
     if (exitFullscreenBtn) {
         exitFullscreenBtn.style.display = showExit ? 'block' : 'none';
     }

@@ -9,6 +9,7 @@ import { startCalibrating } from './CalibrateManager.js';
 import { AudioManager } from './AudioManager.js';
 import { SWIPE_THRESHOLD } from './constants.js';
 import { LangHelper } from './LangHelper.js';
+import { requestFullscreen } from './FullScreenHelper.js';
 
 
 const startBtn = document.getElementById('start-button');
@@ -238,6 +239,7 @@ endCalibrateBtn.onclick = () => {
 }
 
 function RestartGame() {
+    requestFullscreen();
     gameManager.reset();
     DisplayRandomShape();
     setElementActive(resultContainer, false);

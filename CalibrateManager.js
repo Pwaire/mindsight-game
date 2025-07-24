@@ -3,6 +3,7 @@ import { SWIPE_THRESHOLD } from './constants.js';
 import { LangHelper } from './LangHelper.js';
 import { AudioManager } from './AudioManager.js';
 import { getAudioPaths } from './AudioPaths.js';
+import { requestFullscreen } from './FullScreenHelper.js';
 const calibrateBtn = document.getElementById('calibrate-button');
 const calibrateContainer = document.getElementById('calibrate-container');
 const calibrateContainerParent = document.getElementById('calibrate-container-parent');
@@ -76,6 +77,7 @@ export function startCalibrating() {
 }
 
 function beginCalibrationSession() {
+    requestFullscreen();
     setCalibrateContainerActive(true);
     setElementActive(nextShapeBtn, true);
     setCalibrateButtonActive(false);

@@ -310,18 +310,13 @@ function RestartGame() {
 }
 
 
-// -- Mobile swipe support --
+// -- Mobile tap/swipe handling --
 let touchStartX = 0;
 let touchEndX = 0;
 
-function handleSwipeGesture() {
+function isSwipeGesture() {
     const diff = touchEndX - touchStartX;
-    if (Math.abs(diff) < SWIPE_THRESHOLD) return;
-    if (diff > 0) {
-        handleShapeClick('Square');
-    } else {
-        handleShapeClick('Star');
-    }
+    return Math.abs(diff) >= SWIPE_THRESHOLD;
 }
 
 document.addEventListener('keydown', (e) => {
@@ -339,20 +334,11 @@ gameContainer.addEventListener('touchstart', (e) => {
 
 gameContainer.addEventListener('touchend', (e) => {
     touchEndX = e.changedTouches[0].screenX;
-    handleSwipeGesture();
-}, false);
-
-// -- Mobile tap left/right support --
-gameContainer.addEventListener('touchend', (e) => {
-    // Use existing swipe if swipe distance is sufficient
-    touchEndX = e.changedTouches[0].screenX;
-    const diff = touchEndX - touchStartX;
-    if (Math.abs(diff) >= SWIPE_THRESHOLD) {
-        handleSwipeGesture();
-        return;
+    if (isSwipeGesture()) {
+        return; // ignore swipes
     }
 
-    // If it's just a tap, determine which side of the screen was touched
+    // It's a tap: determine which side of the screen was touched
     const screenWidth = window.innerWidth;
     const touchX = e.changedTouches[0].clientX;
 
@@ -363,5 +349,5 @@ gameContainer.addEventListener('touchend', (e) => {
     } else {
         handleShapeClick('Square'); // right side = Square
     }
-});
+}, false);
 

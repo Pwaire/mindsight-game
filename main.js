@@ -24,6 +24,7 @@ const roundCounter = document.getElementById('round-counter');
 const roundBoard = document.getElementById('round-board');
 const tutorialContainer = document.getElementById('tutorial-container');
 const exitFullscreenBtn = document.getElementById('exit-fullscreen-button');
+const enterFullscreenBtn = document.getElementById('enter-fullscreen-button');
 let newShapeAudio;
 let swipeRuleAudio;
 let guessSuccessAudio;
@@ -67,10 +68,13 @@ function isBrowserFullscreen() {
 function updateFullscreenButtonVisibility() {
     const inDomFullscreen = !!document.fullscreenElement;
     const inBrowserFullscreen = isBrowserFullscreen();
-    if ((inDomFullscreen || inBrowserFullscreen) && !isMobile()) {
-        exitFullscreenBtn.style.display = 'block';
-    } else {
-        exitFullscreenBtn.style.display = 'none';
+    const showExit = (inDomFullscreen || inBrowserFullscreen) && !isMobile();
+    const showEnter = !showExit && !isMobile();
+    if (exitFullscreenBtn) {
+        exitFullscreenBtn.style.display = showExit ? 'block' : 'none';
+    }
+    if (enterFullscreenBtn) {
+        enterFullscreenBtn.style.display = showEnter ? 'block' : 'none';
     }
 }
 
@@ -84,6 +88,12 @@ if (exitFullscreenBtn) {
         } else if (isBrowserFullscreen()) {
             alert('Press F11 to exit fullscreen.');
         }
+    };
+}
+
+if (enterFullscreenBtn) {
+    enterFullscreenBtn.onclick = () => {
+        requestFullscreen();
     };
 }
 

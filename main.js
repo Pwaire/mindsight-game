@@ -9,7 +9,7 @@ import { startCalibrating } from './CalibrateManager.js';
 import { AudioManager } from './AudioManager.js';
 import { SWIPE_THRESHOLD } from './constants.js';
 import { LangHelper } from './LangHelper.js';
-import { requestFullscreen } from './FullScreenHelper.js';
+import { requestFullscreen, exitFullscreen } from './FullScreenHelper.js';
 
 
 const startBtn = document.getElementById('start-button');
@@ -23,6 +23,7 @@ const endCalibrateBtn = document.getElementById('end-calibrate-button');
 const roundCounter = document.getElementById('round-counter');
 const roundBoard = document.getElementById('round-board');
 const tutorialContainer = document.getElementById('tutorial-container');
+const exitFullscreenBtn = document.getElementById('exit-fullscreen-button');
 let newShapeAudio;
 let swipeRuleAudio;
 let guessSuccessAudio;
@@ -54,6 +55,25 @@ let langStrings;
     setupGameUI();
     setElementActive(gameContainerParent, false);
 })();
+
+function isMobile() {
+    return /Mobi|Android/i.test(navigator.userAgent);
+}
+
+document.addEventListener('fullscreenchange', () => {
+    const isFs = !!document.fullscreenElement;
+    if (isFs && !isMobile()) {
+        exitFullscreenBtn.style.display = 'block';
+    } else {
+        exitFullscreenBtn.style.display = 'none';
+    }
+});
+
+if (exitFullscreenBtn) {
+    exitFullscreenBtn.onclick = () => {
+        exitFullscreen();
+    };
+}
 
 
 function setElementActive(container, active) {

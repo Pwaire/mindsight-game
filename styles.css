@@ -18,6 +18,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; /* Align content to top */
+  position: relative;
 }
 
 
@@ -74,6 +75,14 @@ button:hover {
   background-color: #2980b9;
 }
 
+#exit-fullscreen-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: none;
+  z-index: 1000;
+}
+
 .swiping {
   background-color: #f1c40f;
 }
@@ -118,6 +127,10 @@ button:hover {
   align-items: center;
 }
 
+#tutorial-container {
+  justify-content: center;
+}
+
 #tutorial-image {
   width: 90%;
   max-width: 600px;
@@ -138,6 +151,23 @@ button:hover {
     margin: 0;
     height: 100%;
     border-radius: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  #game-container,
+  #calibrate-container,
+  #tutorial-container {
+    justify-content: center;
+  }
+
+  #shape-image,
+  #calibrateShape-image {
+    max-width: 40vh;
+  }
+
+  #tutorial-image {
+    width: 80%;
   }
 }
 

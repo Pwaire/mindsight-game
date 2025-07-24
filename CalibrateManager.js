@@ -1,5 +1,5 @@
 import { ShapeManager } from './ShapeManager.js';
-import { SWIPE_THRESHOLD } from './constants.js';
+import { SWIPE_THRESHOLD, LONG_PRESS_THRESHOLD } from './constants.js';
 import { LangHelper } from './LangHelper.js';
 import { AudioManager } from './AudioManager.js';
 import { getAudioPaths } from './AudioPaths.js';
@@ -116,30 +116,38 @@ function SetRandomShape() {
     playShapeAudio(currentDisplayedShape);
 }
 
-// -- Mobile swipe support for calibrate screen --
+// -- Mobile tap handling for calibrate screen --
 let calibrateTouchStartX = 0;
 let calibrateTouchEndX = 0;
+let calibrateTouchStartTime = 0;
 
-function handleCalibrateSwipeGesture() {
+function isCalibrateSwipe() {
     const diff = calibrateTouchEndX - calibrateTouchStartX;
-    if (Math.abs(diff) < SWIPE_THRESHOLD) {
-        // Treat as a tap when movement is below the swipe threshold
-        nextShapeBtn.click();
-        return;
-    }
-    // For calibration, any horizontal swipe also moves to the next shape
+    return Math.abs(diff) >= SWIPE_THRESHOLD;
+}
+
+function isCalibrateLongPress(duration) {
+    return duration >= LONG_PRESS_THRESHOLD;
+}
+
+function handleCalibrateTap() {
     nextShapeBtn.click();
 }
 
 calibrateContainer.addEventListener('touchstart', (e) => {
     calibrateTouchStartX = e.changedTouches[0].screenX;
+    calibrateTouchStartTime = Date.now();
 }, false);
 
 calibrateContainer.addEventListener('touchend', (e) => {
     calibrateTouchEndX = e.changedTouches[0].screenX;
     // Ignore taps on buttons to prevent double actions
     if ((e.target instanceof HTMLElement) && e.target.closest('button')) return;
-    handleCalibrateSwipeGesture();
+    const duration = Date.now() - calibrateTouchStartTime;
+    if (isCalibrateSwipe() || isCalibrateLongPress(duration)) {
+        return;
+    }
+    handleCalibrateTap();
 }, false);
 
 // -- Keyboard support --

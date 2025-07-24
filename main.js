@@ -7,7 +7,7 @@ import { setCalibrateButtonActive } from './CalibrateManager.js';
 import { setCalibrateContainerActive } from './CalibrateManager.js';
 import { startCalibrating } from './CalibrateManager.js';
 import { AudioManager } from './AudioManager.js';
-import { SWIPE_THRESHOLD } from './constants.js';
+import { SWIPE_THRESHOLD, LONG_PRESS_THRESHOLD } from './constants.js';
 import { LangHelper } from './LangHelper.js';
 import { requestFullscreen, exitFullscreen } from './FullScreenHelper.js';
 
@@ -313,10 +313,15 @@ function RestartGame() {
 // -- Mobile tap/swipe handling --
 let touchStartX = 0;
 let touchEndX = 0;
+let touchStartTime = 0;
 
 function isSwipeGesture() {
     const diff = touchEndX - touchStartX;
     return Math.abs(diff) >= SWIPE_THRESHOLD;
+}
+
+function isLongPress(duration) {
+    return duration >= LONG_PRESS_THRESHOLD;
 }
 
 document.addEventListener('keydown', (e) => {
@@ -330,12 +335,14 @@ document.addEventListener('keydown', (e) => {
 
 gameContainer.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX;
+    touchStartTime = Date.now();
 }, false);
 
 gameContainer.addEventListener('touchend', (e) => {
     touchEndX = e.changedTouches[0].screenX;
-    if (isSwipeGesture()) {
-        return; // ignore swipes
+    const touchDuration = Date.now() - touchStartTime;
+    if (isSwipeGesture() || isLongPress(touchDuration)) {
+        return; // ignore swipes and long presses
     }
 
     // It's a tap: determine which side of the screen was touched

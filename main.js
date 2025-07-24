@@ -197,6 +197,7 @@ function createButtonContainer() {
 }
 
 function showTutorial() {
+  requestFullscreen();
   setElementActive(resultContainer, false);
   setElementActive(startBtn, false);
   setElementActive(calibrateStartBtn, false);

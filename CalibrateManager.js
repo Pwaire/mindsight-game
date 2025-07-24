@@ -89,6 +89,7 @@ function beginCalibrationSession() {
 function showCalibrateTutorial() {
     const tutorialContainer = document.getElementById('tutorial-container');
     if (!tutorialContainer) return;
+    requestFullscreen();
     setCalibrateButtonActive(false);
     setElementActive(startBtnOutside, false);
     setElementActive(tutorialContainer, true);

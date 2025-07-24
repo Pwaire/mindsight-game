@@ -125,3 +125,18 @@ button:hover {
 }
 
 
+@media (max-width: 768px) {
+  #button-container {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  #button-container button {
+    flex: 1;
+    margin: 0;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+

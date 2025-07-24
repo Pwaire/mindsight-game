@@ -147,18 +147,33 @@ button:hover {
 
 
 @media (max-width: 768px) {
+  .wrapper {
+    justify-content: center;
+  }
+
+  #start-button,
+  #calibrate-button {
+    margin-top: 0;
+  }
+
   #button-container {
     display: flex;
-    flex-grow: 1;
+    flex-grow: 0;
     width: 100%;
     gap: 4px;
+    margin-top: auto;
   }
 
   #button-container button {
     flex: 1;
     margin: 0;
-    height: 100%;
+    height: 60px;
+    font-size: 1.2rem;
     border-radius: 0;
+  }
+
+  #shape-image {
+    margin-top: 40px;
   }
 
   #game-container,

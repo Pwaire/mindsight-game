@@ -89,12 +89,18 @@ if (exitFullscreenBtn) {
             alert('Press F11 to exit fullscreen.');
         }
     };
+    exitFullscreenBtn.addEventListener('touchend', (e) => {
+        e.stopPropagation();
+    });
 }
 
 if (enterFullscreenBtn) {
     enterFullscreenBtn.onclick = () => {
         requestFullscreen();
     };
+    enterFullscreenBtn.addEventListener('touchend', (e) => {
+        e.stopPropagation();
+    });
 }
 
 // Initialize button visibility on load

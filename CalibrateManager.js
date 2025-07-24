@@ -138,7 +138,7 @@ calibrateContainer.addEventListener('touchstart', (e) => {
 calibrateContainer.addEventListener('touchend', (e) => {
     calibrateTouchEndX = e.changedTouches[0].screenX;
     // Ignore taps on buttons to prevent double actions
-    if (e.target.closest('button')) return;
+    if ((e.target instanceof HTMLElement) && e.target.closest('button')) return;
     handleCalibrateSwipeGesture();
 }, false);
 

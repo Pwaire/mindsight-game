@@ -79,7 +79,11 @@ window.addEventListener('resize', updateFullscreenButtonVisibility);
 
 if (exitFullscreenBtn) {
     exitFullscreenBtn.onclick = () => {
-        exitFullscreen();
+        if (document.fullscreenElement) {
+            exitFullscreen();
+        } else if (isBrowserFullscreen()) {
+            alert('Press F11 to exit fullscreen.');
+        }
     };
 }
 

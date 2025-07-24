@@ -150,6 +150,9 @@ document.addEventListener('keydown', (e) => {
     const containerVisible = getComputedStyle(calibrateContainerParent).display !== 'none';
     if (!containerVisible) return;
     if (spaceHeld) return;
+    if ((e.target instanceof HTMLElement) && e.target.closest('button')) {
+        e.preventDefault();
+    }
     spaceHeld = true;
     nextShapeBtn.click();
 });

@@ -240,7 +240,6 @@ endCalibrateBtn.onclick = () => {
 }
 
 function RestartGame() {
-    requestFullscreen();
     gameManager.reset();
     DisplayRandomShape();
     setElementActive(resultContainer, false);

@@ -77,7 +77,6 @@ export function startCalibrating() {
 }
 
 function beginCalibrationSession() {
-    requestFullscreen();
     setCalibrateContainerActive(true);
     setElementActive(nextShapeBtn, true);
     setCalibrateButtonActive(false);

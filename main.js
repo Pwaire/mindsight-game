@@ -106,6 +106,19 @@ if (enterFullscreenBtn) {
 // Initialize button visibility on load
 updateFullscreenButtonVisibility();
 
+if (isMobile()) {
+    // Mobile Chrome sometimes fails to render initial buttons.
+    // Briefly hide and show the main wrapper to force a redraw.
+    setTimeout(() => {
+        const wrapper = document.querySelector('.wrapper');
+        if (wrapper) {
+            wrapper.style.display = 'none';
+            void wrapper.offsetHeight; // force reflow
+            wrapper.style.display = '';
+        }
+    }, 100);
+}
+
 
 function setElementActive(container, active) {
     var value = active == true ? 'block' : 'none';

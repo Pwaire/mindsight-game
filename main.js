@@ -106,17 +106,21 @@ if (enterFullscreenBtn) {
 // Initialize button visibility on load
 updateFullscreenButtonVisibility();
 
+function forceWrapperRedraw() {
+    const wrapper = document.querySelector('.wrapper');
+    if (wrapper instanceof HTMLElement) {
+        wrapper.style.display = 'none';
+        void wrapper.offsetHeight;
+        wrapper.style.display = '';
+        console.debug('Forced redraw');
+    } else {
+        console.debug('Wrapper not found');
+    }
+}
+
+// Delay even further to ensure layout is complete
 if (isMobile()) {
-    // Mobile Chrome sometimes fails to render initial buttons.
-    // Briefly hide and show the main wrapper to force a redraw.
-    setTimeout(() => {
-        const wrapper = document.querySelector('.wrapper');
-        if (wrapper) {
-            wrapper.style.display = 'none';
-            void wrapper.offsetHeight; // force reflow
-            wrapper.style.display = '';
-        }
-    }, 100);
+    setTimeout(forceWrapperRedraw, 300);
 }
 
 

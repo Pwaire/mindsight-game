@@ -357,10 +357,3 @@ gameContainer.addEventListener('touchend', (e) => {
         handleShapeClick('Square'); // right side = Square
     }
 }, false);
-
-window.addEventListener('load', () => {
-  // Force reflow to help mobile browsers show elements correctly
-  document.body.style.display = 'none';
-  void document.body.offsetHeight; // force reflow
-  document.body.style.display = '';
-});
